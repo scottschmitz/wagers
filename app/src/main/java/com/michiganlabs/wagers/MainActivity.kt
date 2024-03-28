@@ -19,6 +19,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.michiganlabs.wagers.logic.BetUseCase
+import com.michiganlabs.wagers.ui.PlaceBetView
 import com.michiganlabs.wagers.ui.theme.WagersTheme
 
 class MainActivity : ComponentActivity() {
@@ -31,7 +33,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    App()
+                    PlaceBetView(betUseCase = BetUseCase(), modifier = Modifier.fillMaxSize())
                 }
             }
         }
