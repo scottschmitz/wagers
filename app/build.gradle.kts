@@ -97,24 +97,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
     testImplementation(libs.kotlin.test)
     testImplementation(platform(libs.junit.bom))
     testImplementation(platform(libs.cucumber.bom))
     testImplementation(libs.cucumber.junit)
     testImplementation(libs.cucumber.java)
-//    testImplementation("io.cucumber:cucumber-junit-platform-engine")
-//    testImplementation("org.junit.platform:junit-platform-suite")
-//    testImplementation("org.junit.jupiter:junit-jupiter")
-
-
 
     androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.cucumber.java)
     androidTestImplementation(libs.cucumber.junit)
     androidTestImplementation(libs.cucumber.android)
-
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-// Needed for createComposeRule(), but not for createAndroidComposeRule<YourActivity>():
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
