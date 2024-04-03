@@ -10,5 +10,4 @@ import org.junit.runner.RunWith
     glue = ["com.michiganlabs.wagers"],
     plugin = ["pretty", "html:target/cucumber-reports.html"]
 )
-class RunBetCalculatorTest {
-}
+class RunBetCalculatorTest

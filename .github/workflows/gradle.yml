@@ -74,16 +74,16 @@ jobs:
           api-level: 29
           script: ./gradlew connectedCheck
 
-#  detekt:
-#    runs-on: ubuntu-latest
-#    permissions:
-#      contents: read
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
-#      - name: Detekt
-#        uses: natiginfo/action-detekt-all@1.23.5
-#        with:
-#          args:  --config detekt-config.yml
+  detekt:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Detekt
+        uses: natiginfo/action-detekt-all@1.23.5
+        with:
+          args:  --config detekt-config.yml

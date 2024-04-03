@@ -4,6 +4,7 @@ import com.michiganlabs.wagers.model.Bet
 import kotlin.math.abs
 import kotlin.math.floor
 
+@Suppress("MagicNumber")
 class BetUseCase {
     fun calculatePayout(bet: Bet, wager: Double): Double {
         return calculatePayout(bet.odds, wager)
