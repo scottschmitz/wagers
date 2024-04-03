@@ -59,7 +59,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -68,15 +68,17 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     testImplementation(libs.kotlin.test)
-    testImplementation(libs.cucumber.java)
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(platform(libs.cucumber.bom))
     testImplementation(libs.cucumber.junit)
+    testImplementation(libs.cucumber.java)
 
     androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.cucumber.java)
     androidTestImplementation(libs.cucumber.junit)
     androidTestImplementation(libs.cucumber.android)
+}
 
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-// Needed for createComposeRule(), but not for createAndroidComposeRule<YourActivity>():
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+tasks.withType<Test> {
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
