@@ -49,36 +49,6 @@ android {
     }
 }
 
-println("Source Sets")
-sourceSets.forEach {
-    println(it.name)
-}
-
-tasks.register("cucumberCli") {
-    dependsOn("compileDebugKotlin", "testDebugUnitTest")
-    doLast {
-        println("Source Sets:")
-        sourceSets.forEach {
-            println(it.name)
-        }
-
-//        javaexec {
-//            mainClass = "com.michiganlabs.wagers.RunBetCalculatorTest"
-//            classpath = configurations["cucumberRuntime"] + sourceSets.getByName("cucumber").output
-//            args = listOf(
-//                "--plugin", "pretty",
-//                "--plugin", "html:target/cucumber-report.html",
-//                "--glue", "com.michiganlabs.wagers",
-//                "src/test/assets/features"
-//            )
-//        }
-    }
-}
-tasks.withType<Test> {
-    systemProperty("cucumber.junit-platform.naming-strategy", "long")
-}
-
-
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -107,4 +77,8 @@ dependencies {
     androidTestImplementation(libs.cucumber.java)
     androidTestImplementation(libs.cucumber.junit)
     androidTestImplementation(libs.cucumber.android)
+}
+
+tasks.withType<Test> {
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
