@@ -74,6 +74,7 @@ dependencies {
     testImplementation(libs.cucumber.java)
 
     androidTestImplementation(libs.kotlin.test)
+    androidTestImplementation(platform(libs.cucumber.bom))
     androidTestImplementation(libs.cucumber.java)
     androidTestImplementation(libs.cucumber.junit)
     androidTestImplementation(libs.cucumber.android)

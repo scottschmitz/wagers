@@ -1,3 +1,4 @@
+@file:Suppress("MagicNumber")
 package com.michiganlabs.wagers.ui.theme
 
 import androidx.compose.ui.graphics.Color

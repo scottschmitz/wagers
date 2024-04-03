@@ -7,6 +7,4 @@ import io.cucumber.junit.CucumberOptions
     features = ["features"],
     plugin = ["pretty"]
 )
-class AndroidJUnitRunner : CucumberAndroidJUnitRunner() {
-
-}
+class AndroidJUnitRunner : CucumberAndroidJUnitRunner()

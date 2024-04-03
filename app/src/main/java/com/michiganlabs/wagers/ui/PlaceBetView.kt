@@ -24,7 +24,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.michiganlabs.wagers.logic.BetUseCase
 
+@Suppress("MagicNumber")
 val oddsOptions = listOf(-200, -110, 100, 110, 200)
+private const val DEFAULT_OPTION = 100
 
 @Composable
 fun PlaceBetView(
@@ -33,7 +35,7 @@ fun PlaceBetView(
 ) {
 
     val currentOdds = remember {
-        mutableIntStateOf(100)
+        mutableIntStateOf(DEFAULT_OPTION)
     }
     var wager by rememberSaveable { mutableStateOf("") }
     val wagerDouble = remember(wager) {
