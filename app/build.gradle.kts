@@ -80,3 +80,54 @@ dependencies {
 // Needed for createComposeRule(), but not for createAndroidComposeRule<YourActivity>():
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
+
+//sourceSets {
+//    main {
+//        java {
+//            srcDirs("src")
+//        }
+//        resources {
+//            srcDirs("resources")
+//        }
+//    }
+//    test {
+//        java {
+//            srcDirs("test")
+//        }
+//        resources {
+//            srcDirs("testresources")
+//        }
+//    }
+//}
+//
+//
+//sourceSets.create("cucumber") {
+//    kotlin {
+//
+//        srcDir("src/main/kotlin")
+//        srcDir("src/test/java")
+//        srcDir("src/test/kotlin")
+//    }
+//
+//
+//}
+
+val cucumberRuntime: Configuration by configurations.creating {
+    extendsFrom(configurations["testImplementation"])
+}
+
+tasks.register("cucumberCli") {
+    dependsOn("assemble")
+    doLast {
+        javaexec {
+            mainClass = "io.cucumber.core.cli.Main"
+            classpath = configurations["cucumberRuntime"] + sourceSets.getByName("app:main").output
+            args = listOf(
+                "--plugin", "pretty",
+                "--plugin", "html:target/cucumber-report.html",
+                "--glue", "com.michiganlabs.wagers",
+                "src/test/assets/features"
+            )
+        }
+    }
+}
