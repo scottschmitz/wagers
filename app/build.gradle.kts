@@ -49,6 +49,36 @@ android {
     }
 }
 
+println("Source Sets")
+sourceSets.forEach {
+    println(it.name)
+}
+
+tasks.register("cucumberCli") {
+    dependsOn("compileDebugKotlin", "testDebugUnitTest")
+    doLast {
+        println("Source Sets:")
+        sourceSets.forEach {
+            println(it.name)
+        }
+
+//        javaexec {
+//            mainClass = "com.michiganlabs.wagers.RunBetCalculatorTest"
+//            classpath = configurations["cucumberRuntime"] + sourceSets.getByName("cucumber").output
+//            args = listOf(
+//                "--plugin", "pretty",
+//                "--plugin", "html:target/cucumber-report.html",
+//                "--glue", "com.michiganlabs.wagers",
+//                "src/test/assets/features"
+//            )
+//        }
+    }
+}
+tasks.withType<Test> {
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
+}
+
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -59,7 +89,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    testImplementation(libs.junit)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -67,9 +97,17 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+
     testImplementation(libs.kotlin.test)
-    testImplementation(libs.cucumber.java)
+    testImplementation(platform(libs.junit.bom))
+    testImplementation(platform(libs.cucumber.bom))
     testImplementation(libs.cucumber.junit)
+    testImplementation(libs.cucumber.java)
+//    testImplementation("io.cucumber:cucumber-junit-platform-engine")
+//    testImplementation("org.junit.platform:junit-platform-suite")
+//    testImplementation("org.junit.jupiter:junit-jupiter")
+
+
 
     androidTestImplementation(libs.kotlin.test)
     androidTestImplementation(libs.cucumber.java)
@@ -79,55 +117,4 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 // Needed for createComposeRule(), but not for createAndroidComposeRule<YourActivity>():
     debugImplementation("androidx.compose.ui:ui-test-manifest")
-}
-
-//sourceSets {
-//    main {
-//        java {
-//            srcDirs("src")
-//        }
-//        resources {
-//            srcDirs("resources")
-//        }
-//    }
-//    test {
-//        java {
-//            srcDirs("test")
-//        }
-//        resources {
-//            srcDirs("testresources")
-//        }
-//    }
-//}
-//
-//
-//sourceSets.create("cucumber") {
-//    kotlin {
-//
-//        srcDir("src/main/kotlin")
-//        srcDir("src/test/java")
-//        srcDir("src/test/kotlin")
-//    }
-//
-//
-//}
-
-val cucumberRuntime: Configuration by configurations.creating {
-    extendsFrom(configurations["testImplementation"])
-}
-
-tasks.register("cucumberCli") {
-    dependsOn("assemble")
-    doLast {
-        javaexec {
-            mainClass = "io.cucumber.core.cli.Main"
-            classpath = configurations["cucumberRuntime"] + sourceSets.getByName("app:main").output
-            args = listOf(
-                "--plugin", "pretty",
-                "--plugin", "html:target/cucumber-report.html",
-                "--glue", "com.michiganlabs.wagers",
-                "src/test/assets/features"
-            )
-        }
-    }
 }
