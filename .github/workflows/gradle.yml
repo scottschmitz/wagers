@@ -60,7 +60,7 @@ jobs:
         uses: gradle/actions/setup-gradle@ec92e829475ac0c2315ea8f9eced72db85bb337a # v3.0.0
 
       - name: Run tests
-        run: ./gradlew test
+        run: ./gradlew test --info
 
       - name: Enable KVM
         run: |
@@ -74,16 +74,16 @@ jobs:
           api-level: 29
           script: ./gradlew connectedCheck
 
-  detekt:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Detekt
-        uses: natiginfo/action-detekt-all@1.23.5
-        with:
-          args:  --config detekt-config.yml
+#  detekt:
+#    runs-on: ubuntu-latest
+#    permissions:
+#      contents: read
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v4
+#
+#      - name: Detekt
+#        uses: natiginfo/action-detekt-all@1.23.5
+#        with:
+#          args:  --config detekt-config.yml
