@@ -27,6 +27,9 @@ jobs:
 
       - name: Build with Gradle Wrapper
         run: ./gradlew build
+        env:
+          GITHUB_USERNAME: ${{ secrets.HOVERBOARD_USERNAME }}
+          GITHUB_TOKEN: ${{ secrets.HOVERBOARD_TOKEN }}
 
       - name: Detekt
         uses: natiginfo/action-detekt-all@1.23.5
