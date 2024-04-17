@@ -16,6 +16,17 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+
+        maven {
+            url = uri("https://maven.pkg.github.com/michiganlabs/hoverboard")
+            credentials {
+                val gitHubHoverboardUsername: String? by settings
+                val gitHubHoverboardPassword: String? by settings
+
+                username = gitHubHoverboardUsername ?: System.getenv("GITHUB_USERNAME")
+                password = gitHubHoverboardPassword ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
 

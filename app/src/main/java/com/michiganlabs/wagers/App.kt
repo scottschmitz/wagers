@@ -1,29 +1,26 @@
 package com.michiganlabs.wagers
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import android.app.Application
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.michiganlabs.hoverboard.analytics.firebase.CrashlyticsTree
+import timber.log.Timber
 
-@Composable
-fun App() {
-    var showContent by remember { mutableStateOf(false) }
-    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Button(onClick = { showContent = !showContent }) {
-            Text("Click Me!")
+class App: Application() {
+    override fun onCreate() {
+        super.onCreate()
+
+        setupLogging()
+    }
+
+    private fun setupLogging() {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
         }
-        AnimatedVisibility(showContent) {
-            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                Text("SURPRISE!")
-            }
+
+        val crashlyticsEnabled = BuildConfig.ENABLE_CRASHLYTICS
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(crashlyticsEnabled)
+        if (crashlyticsEnabled) {
+            Timber.plant(CrashlyticsTree())
         }
     }
 }
